@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -40,17 +41,27 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun ActivityContent() {
         AppTheme {
-            Column(
+            LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight(),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Button(onClick = { onReviewMeClicked() })
-                { Text("Review Me!!") }
+                item {
+                    Button(onClick = { onReviewMeClicked() })
+                    { Text("Review Me!!") }
+                }
+                item {
+                    Button(onClick = { onShowMoviesClicked() })
+                    { Text("Show List of Movies!") }
+                }
             }
         }
+    }
+
+    private fun onShowMoviesClicked() {
+
     }
 
     private fun onReviewMeClicked() {

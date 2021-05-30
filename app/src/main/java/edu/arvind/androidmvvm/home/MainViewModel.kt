@@ -17,6 +17,10 @@ class MainViewModel(val navigator: MainNavigator) : ViewModel() {
     fun onReviewMeClicked() {
         navigator.reviewButtonTrigger.postValue(Unit)
     }
+
+    fun onShowListOfMovies(){
+
+    }
 }
 
 fun getMainViewModel(scope: MainActivity) =
