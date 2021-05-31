@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
@@ -15,8 +14,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import edu.arvind.androidmvvm.AppTheme
 import edu.arvind.androidmvvm.askForReview
+import edu.arvind.androidmvvm.list.MoviesActivity
 
 class MainActivity : ComponentActivity() {
     private val viewModel by lazy { getMainViewModel(this) }
@@ -31,9 +32,19 @@ class MainActivity : ComponentActivity() {
 
     private fun initObservers() {
         viewModel.navigator.reviewButtonTrigger.observe(this, ::handleReviewButtonTrigger)
+        viewModel.navigator.displayMoviesListTrigger.observe(this, ::handleDisplayMovieTrigger)
     }
 
-    private fun handleReviewButtonTrigger(unit: Unit?) {
+    private fun handleDisplayMovieTrigger(unit: Unit) {
+        Log.d("MainActivity", "handleDisplayMovieTrigger")
+        launchMoviesListActivity()
+    }
+
+    private fun launchMoviesListActivity() {
+        startActivity(MoviesActivity.createIntent(this))
+    }
+
+    private fun handleReviewButtonTrigger(unit: Unit) {
         Log.d("MainActivity", "handleReviewButtonTrigger")
         askForReview(this)
     }
@@ -45,11 +56,12 @@ class MainActivity : ComponentActivity() {
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight(),
-                verticalArrangement = Arrangement.Center,
+                verticalArrangement = Arrangement.spacedBy(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 item {
-                    Button(onClick = { onReviewMeClicked() })
+                    Button(
+                        onClick = { onReviewMeClicked() })
                     { Text("Review Me!!") }
                 }
                 item {
@@ -61,7 +73,7 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun onShowMoviesClicked() {
-
+        viewModel.onShowListOfMovies()
     }
 
     private fun onReviewMeClicked() {
