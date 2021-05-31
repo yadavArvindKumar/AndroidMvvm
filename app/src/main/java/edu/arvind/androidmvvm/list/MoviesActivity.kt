@@ -15,8 +15,6 @@ class MoviesActivity : AppCompatActivity() {
         }
     }
 
-
-
     companion object {
         fun createIntent(context: Context) = Intent(context, MoviesActivity::class.java)
     }

@@ -18,8 +18,8 @@ class MainViewModel(val navigator: MainNavigator) : ViewModel() {
         navigator.reviewButtonTrigger.postValue(Unit)
     }
 
-    fun onShowListOfMovies(){
-
+    fun onShowListOfMovies() {
+        navigator.displayMoviesListTrigger.postValue(Unit)
     }
 }
 
